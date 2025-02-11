@@ -1,5 +1,5 @@
 import { BigNumber } from '@ethersproject/bignumber';
-import { ChainId, Percent, Price, TradeType } from '@uniswap/sdk-core';
+import { Percent, Price, TradeType } from '@uniswap/sdk-core';
 import { Pool } from '@uniswap/v3-sdk';
 import _ from 'lodash';
 
@@ -16,6 +16,7 @@ import {
 import { CurrencyAmount } from '../../../../util/amounts';
 import { getL2ToL1GasUsed } from '../../../../util/gas-factory-helpers';
 import { log } from '../../../../util/log';
+import { ChainId } from '../../../../util';
 import {
   buildSwapMethodParameters,
   buildTrade,

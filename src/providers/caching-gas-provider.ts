@@ -1,4 +1,4 @@
-import { ChainId } from '@uniswap/sdk-core';
+import { ChainId } from '../util';
 
 import { log } from '../util/log';
 
@@ -24,7 +24,7 @@ export class CachingGasStationProvider implements IGasPriceProvider {
     protected chainId: ChainId,
     private gasPriceProvider: IGasPriceProvider,
     private cache: ICache<GasPrice>
-  ) {}
+  ) { }
 
   public async getGasPrice(): Promise<GasPrice> {
     const cachedGasPrice = await this.cache.get(this.GAS_KEY(this.chainId));

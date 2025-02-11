@@ -1,7 +1,6 @@
 import { BigNumber } from '@ethersproject/bignumber';
 import { Protocol } from '@uniswap/router-sdk';
 import {
-  ChainId,
   Currency,
   CurrencyAmount,
   Token,
@@ -30,6 +29,7 @@ import {
 import { log, WRAPPED_NATIVE_CURRENCY } from '../util';
 
 import { buildTrade } from './methodParameters';
+import { ChainId } from './chain-ids';
 
 export async function getV2NativePool(
   token: Token,
@@ -462,10 +462,10 @@ export function initSwapRouteFromExisting(
     blockNumber: BigNumber.from(swapRoute.blockNumber),
     methodParameters: swapRoute.methodParameters
       ? ({
-          calldata: swapRoute.methodParameters.calldata,
-          value: swapRoute.methodParameters.value,
-          to: swapRoute.methodParameters.to,
-        } as MethodParameters)
+        calldata: swapRoute.methodParameters.calldata,
+        value: swapRoute.methodParameters.value,
+        to: swapRoute.methodParameters.to,
+      } as MethodParameters)
       : undefined,
     simulationStatus: swapRoute.simulationStatus,
   };

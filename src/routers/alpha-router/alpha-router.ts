@@ -2,7 +2,7 @@ import { BigNumber } from '@ethersproject/bignumber';
 import { BaseProvider, JsonRpcProvider } from '@ethersproject/providers';
 import DEFAULT_TOKEN_LIST from '@uniswap/default-token-list';
 import { Protocol, SwapRouter, Trade } from '@uniswap/router-sdk';
-import { ChainId, Currency, Fraction, Token, TradeType } from '@uniswap/sdk-core';
+import { Currency, Fraction, Token, TradeType } from '@uniswap/sdk-core';
 import { TokenList } from '@uniswap/token-lists';
 import { Pool, Position, SqrtPriceMath, TickMath } from '@uniswap/v3-sdk';
 import retry from 'async-retry';
@@ -82,6 +82,8 @@ import {
   V2Route,
   V3Route
 } from '../router';
+
+import { ChainId } from '../../util';
 
 import { DEFAULT_ROUTING_CONFIG_BY_CHAIN, ETH_GAS_STATION_API_URL } from './config';
 import {
@@ -362,7 +364,7 @@ export type AlphaRouterConfig = {
 
 export class AlphaRouter
   implements IRouter<AlphaRouterConfig>,
-    ISwapToRatio<AlphaRouterConfig, SwapAndAddConfig> {
+  ISwapToRatio<AlphaRouterConfig, SwapAndAddConfig> {
   protected chainId: ChainId;
   protected provider: BaseProvider;
   protected multicall2Provider: UniswapMulticallProvider;
@@ -469,6 +471,7 @@ export class AlphaRouter
           break;
         case ChainId.BASE:
         case ChainId.BASE_GOERLI:
+        case ChainId.DOGE_SEPOLIA:
           this.onChainQuoteProvider = new OnChainQuoteProvider(
             chainId,
             provider,
@@ -1183,16 +1186,16 @@ export class AlphaRouter
       const tokenInWithFotTax =
         (tokenPropertiesMap[tokenIn.address.toLowerCase()]
           ?.tokenValidationResult === TokenValidationResult.FOT) ?
-        new Token(
-          tokenIn.chainId,
-          tokenIn.address,
-          tokenIn.decimals,
-          tokenIn.symbol,
-          tokenIn.name,
-          true, // at this point we know it's valid token address
-          tokenPropertiesMap[tokenIn.address.toLowerCase()]?.tokenFeeResult?.buyFeeBps,
-          tokenPropertiesMap[tokenIn.address.toLowerCase()]?.tokenFeeResult?.sellFeeBps
-        ) : tokenIn;
+          new Token(
+            tokenIn.chainId,
+            tokenIn.address,
+            tokenIn.decimals,
+            tokenIn.symbol,
+            tokenIn.name,
+            true, // at this point we know it's valid token address
+            tokenPropertiesMap[tokenIn.address.toLowerCase()]?.tokenFeeResult?.buyFeeBps,
+            tokenPropertiesMap[tokenIn.address.toLowerCase()]?.tokenFeeResult?.sellFeeBps
+          ) : tokenIn;
 
       const tokenOutWithFotTax =
         (tokenPropertiesMap[tokenOut.address.toLowerCase()]
@@ -1587,29 +1590,29 @@ export class AlphaRouter
       const beforeGetRoutesThenQuotes = Date.now();
 
       quotePromises.push(
-          v2CandidatePoolsPromise.then((v2CandidatePools) =>
-              this.v2Quoter.getRoutesThenQuotes(
-                  tokenIn,
-                  tokenOut,
-                  amount,
-                  amounts,
-                  percents,
-                  quoteToken,
-                  v2CandidatePools!,
-                  tradeType,
-                  routingConfig,
-                  undefined,
-                  gasPriceWei
-              ).then((result) => {
-                metric.putMetric(
-                    `SwapRouteFromChain_V2_GetRoutesThenQuotes_Load`,
-                    Date.now() - beforeGetRoutesThenQuotes,
-                    MetricLoggerUnit.Milliseconds
-                );
+        v2CandidatePoolsPromise.then((v2CandidatePools) =>
+          this.v2Quoter.getRoutesThenQuotes(
+            tokenIn,
+            tokenOut,
+            amount,
+            amounts,
+            percents,
+            quoteToken,
+            v2CandidatePools!,
+            tradeType,
+            routingConfig,
+            undefined,
+            gasPriceWei
+          ).then((result) => {
+            metric.putMetric(
+              `SwapRouteFromChain_V2_GetRoutesThenQuotes_Load`,
+              Date.now() - beforeGetRoutesThenQuotes,
+              MetricLoggerUnit.Milliseconds
+            );
 
-                return result;
-              })
-          )
+            return result;
+          })
+        )
       );
     }
 

@@ -1,5 +1,5 @@
 import { JsonRpcProvider } from '@ethersproject/providers';
-import { ChainId, TradeType } from '@uniswap/sdk-core';
+import { TradeType } from '@uniswap/sdk-core';
 import { PERMIT2_ADDRESS } from '@uniswap/universal-router-sdk';
 import { BigNumber } from 'ethers/lib/ethers';
 
@@ -10,6 +10,7 @@ import {
   CurrencyAmount,
   log,
   SWAP_ROUTER_02_ADDRESSES,
+  ChainId,
 } from '../util';
 
 import { ProviderConfig } from './provider';

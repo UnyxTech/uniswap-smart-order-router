@@ -1,8 +1,9 @@
-import { ChainId, Token } from '@uniswap/sdk-core';
+import { Token } from '@uniswap/sdk-core';
 
 import { log } from '../util';
 import { ICache } from './cache';
 import { ProviderConfig } from './provider';
+import { ChainId } from '../util';
 import {
   DEFAULT_TOKEN_FEE_RESULT,
   ITokenFeeFetcher,
@@ -43,7 +44,7 @@ export class TokenPropertiesProvider implements ITokenPropertiesProvider {
     private tokenPropertiesCache: ICache<TokenPropertiesResult>,
     private tokenFeeFetcher: ITokenFeeFetcher,
     private allowList = DEFAULT_ALLOWLIST,
-  ) {}
+  ) { }
 
   public async getTokensProperties(
     tokens: Token[],

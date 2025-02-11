@@ -1,6 +1,5 @@
 import { BigNumber } from '@ethersproject/bignumber';
 import { partitionMixedRouteByProtocol } from '@uniswap/router-sdk';
-import { ChainId } from '@uniswap/sdk-core';
 import { Pair } from '@uniswap/v2-sdk';
 import { Pool } from '@uniswap/v3-sdk';
 import JSBI from 'jsbi';
@@ -8,7 +7,7 @@ import _ from 'lodash';
 
 import { WRAPPED_NATIVE_CURRENCY } from '../../../..';
 import { ProviderConfig } from '../../../../providers/provider';
-import { log } from '../../../../util';
+import { log, ChainId } from '../../../../util';
 import { CurrencyAmount } from '../../../../util/amounts';
 import { getV2NativePool } from '../../../../util/gas-factory-helpers';
 import { MixedRouteWithValidQuote } from '../../entities/route-with-valid-quote';
@@ -152,7 +151,7 @@ export class MixedRouteHeuristicGasModelFactory extends IOnChainGasModelFactory 
       /// can use ! here because we return above if v3Pool and v2Pool are null
       const nativePool =
         (!nativeV3Pool || JSBI.equal(nativeV3Pool.liquidity, JSBI.BigInt(0))) &&
-        nativeV2Pool
+          nativeV2Pool
           ? nativeV2Pool
           : nativeV3Pool!;
 

@@ -5,10 +5,11 @@
  * @interface IRouteCachingProvider
  */
 import { Protocol } from '@uniswap/router-sdk';
-import { ChainId, Currency, CurrencyAmount, Token, TradeType } from '@uniswap/sdk-core';
+import { Currency, CurrencyAmount, Token, TradeType } from '@uniswap/sdk-core';
 
 import { CacheMode } from './model';
 import { CachedRoutes } from './model/cached-routes';
+import { ChainId } from '../../../util';
 
 /**
  * Abstract class for a RouteCachingProvider.

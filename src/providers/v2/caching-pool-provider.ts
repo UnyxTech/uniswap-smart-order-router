@@ -1,8 +1,9 @@
-import { ChainId, Token } from '@uniswap/sdk-core';
+import { Token } from '@uniswap/sdk-core';
 import { Pair } from '@uniswap/v2-sdk';
 import _ from 'lodash';
 
 import { log } from '../../util/log';
+import { ChainId } from '../../util';
 
 import { ICache } from './../cache';
 import { ProviderConfig } from './../provider';
@@ -86,10 +87,8 @@ export class CachingV2PoolProvider implements IV2PoolProvider {
           (t) => t[0].symbol + ' ' + t[1].symbol
         ),
       },
-      `Found ${
-        Object.keys(poolAddressToPool).length
-      } V2 pools already in local cache for block ${blockNumber}. About to get reserves for ${
-        poolsToGetTokenPairs.length
+      `Found ${Object.keys(poolAddressToPool).length
+      } V2 pools already in local cache for block ${blockNumber}. About to get reserves for ${poolsToGetTokenPairs.length
       } pools.`
     );
 

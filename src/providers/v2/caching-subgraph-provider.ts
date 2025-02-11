@@ -1,7 +1,6 @@
-import { ChainId } from '@uniswap/sdk-core';
-
 import { ICache } from './../cache';
 import { IV2SubgraphProvider, V2SubgraphPool } from './subgraph-provider';
+import { ChainId } from '../../util';
 
 /**
  * Provider for getting V2 pools, with functionality for caching the results.
@@ -22,7 +21,7 @@ export class CachingV2SubgraphProvider implements IV2SubgraphProvider {
     private chainId: ChainId,
     protected subgraphProvider: IV2SubgraphProvider,
     private cache: ICache<V2SubgraphPool[]>
-  ) {}
+  ) { }
 
   public async getPools(): Promise<V2SubgraphPool[]> {
     const cachedPools = await this.cache.get(this.SUBGRAPH_KEY(this.chainId));

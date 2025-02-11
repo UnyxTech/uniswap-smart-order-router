@@ -1,5 +1,5 @@
 import { BigNumber } from '@ethersproject/bignumber';
-import { ChainId, Token } from '@uniswap/sdk-core';
+import { Token } from '@uniswap/sdk-core';
 import { Pair } from '@uniswap/v2-sdk';
 import retry, { Options as RetryOptions } from 'async-retry';
 import _ from 'lodash';
@@ -19,6 +19,7 @@ import {
   ITokenPropertiesProvider,
 } from '../token-properties-provider';
 import { TokenValidationResult } from '../token-validator-provider';
+import { ChainId } from '../../util';
 
 type IReserves = {
   reserve0: BigNumber;
@@ -87,7 +88,7 @@ export class V2PoolProvider implements IV2PoolProvider {
       minTimeout: 50,
       maxTimeout: 500,
     }
-  ) {}
+  ) { }
 
   public async getPools(
     tokenPairs: [Token, Token][],
@@ -143,10 +144,9 @@ export class V2PoolProvider implements IV2PoolProvider {
     ]);
 
     log.info(
-      `Got reserves for ${poolAddressSet.size} pools ${
-        providerConfig?.blockNumber
-          ? `as of block: ${await providerConfig?.blockNumber}.`
-          : ``
+      `Got reserves for ${poolAddressSet.size} pools ${providerConfig?.blockNumber
+        ? `as of block: ${await providerConfig?.blockNumber}.`
+        : ``
       }`
     );
 

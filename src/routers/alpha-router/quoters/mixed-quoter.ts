@@ -1,5 +1,5 @@
 import { Protocol } from '@uniswap/router-sdk';
-import { ChainId, Currency, Token, TradeType } from '@uniswap/sdk-core';
+import { Currency, Token, TradeType } from '@uniswap/sdk-core';
 import _ from 'lodash';
 
 import {
@@ -13,7 +13,7 @@ import {
   IV3SubgraphProvider,
   TokenValidationResult
 } from '../../../providers';
-import { CurrencyAmount, log, metric, MetricLoggerUnit, routeToString } from '../../../util';
+import { CurrencyAmount, log, metric, MetricLoggerUnit, routeToString, ChainId } from '../../../util';
 import { MixedRoute } from '../../router';
 import { AlphaRouterConfig } from '../alpha-router';
 import { MixedRouteWithValidQuote } from '../entities';

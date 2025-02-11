@@ -1,9 +1,9 @@
-import { ChainId } from '@uniswap/sdk-core';
 import retry from 'async-retry';
 import Timeout from 'await-timeout';
 import axios from 'axios';
 
 import { log } from '../util/log';
+import { ChainId } from '../util';
 
 import { V2SubgraphPool } from './v2/subgraph-provider';
 import { V3SubgraphPool } from './v3/subgraph-provider';
@@ -25,7 +25,7 @@ export class URISubgraphProvider<
     private uri: string,
     private timeout = 6000,
     private retries = 2
-  ) {}
+  ) { }
 
   public async getPools(): Promise<TSubgraphPool[]> {
     log.info(
