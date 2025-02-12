@@ -471,7 +471,7 @@ export const USDC_BASE = new Token(
   'USD Base Coin'
 )
 
-// Base Goerli Tokens 
+// Base Goerli Tokens
 export const USDC_BASE_GOERLI = new Token(
   ChainId.BASE_GOERLI,
   '0x853154e2A5604E5C74a2546E2871Ad44932eB92C',
@@ -482,8 +482,8 @@ export const USDC_BASE_GOERLI = new Token(
 
 export const USDC_DOGE_SEPOLIA = new Token(
   ChainId.DOGE_SEPOLIA,
-  '0x036CbD53842c5426634e7929541eC2318f3dCF7e',
-  6,
+  '0x5b0b4125c0abdc074d9ade8deabf9989a85198bd',
+  18,
   'USDC',
   'USD Coin'
 )

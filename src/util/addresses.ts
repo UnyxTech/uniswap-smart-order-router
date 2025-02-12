@@ -169,7 +169,7 @@ export const WETH9: {
   ),
   [ChainId.DOGE_SEPOLIA]: new Token(
     ChainId.DOGE_SEPOLIA,
-    '0x4200000000000000000000000000000000000006',
+    '0x1d61c8e2ff2c987e9d6443e9b9f521ab901a4631',
     18,
     'WETH',
     'Wrapped Ether'
