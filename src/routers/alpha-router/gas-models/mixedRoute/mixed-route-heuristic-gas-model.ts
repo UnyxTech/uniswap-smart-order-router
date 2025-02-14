@@ -2,14 +2,12 @@ import { BigNumber } from '@ethersproject/bignumber';
 import { partitionMixedRouteByProtocol } from '@uniswap/router-sdk';
 import { Pair } from '@uniswap/v2-sdk';
 import { Pool } from '@uniswap/v3-sdk';
-import JSBI from 'jsbi';
 import _ from 'lodash';
 
 import { WRAPPED_NATIVE_CURRENCY } from '../../../..';
 import { ProviderConfig } from '../../../../providers/provider';
 import { log, ChainId } from '../../../../util';
 import { CurrencyAmount } from '../../../../util/amounts';
-import { getV2NativePool } from '../../../../util/gas-factory-helpers';
 import { MixedRouteWithValidQuote } from '../../entities/route-with-valid-quote';
 import {
   BuildOnChainGasModelFactoryType,
@@ -108,17 +106,18 @@ export class MixedRouteHeuristicGasModelFactory extends IOnChainGasModelFactory 
     // We do this by getting the highest liquidity <quoteToken>/<nativeCurrency> pool. eg. <quoteToken>/ETH pool.
     const nativeV3Pool: Pool | null = pools.nativeQuoteTokenV3Pool;
 
-    let nativeV2Pool: Pair | null;
-    if (V2poolProvider) {
-      /// MixedRoutes
-      console.log('mixedGasModel#getV2NativePool');
-      nativeV2Pool = await getV2NativePool(
-        quoteToken,
-        V2poolProvider,
-        providerConfig
-      );
-      console.log('mixedGasModel#getV2NativePool');
-    }
+    // let nativeV2Pool: Pair | null;
+    // if (V2poolProvider) {
+    //   /// MixedRoutes
+    //   console.log('mixedGasModel#getV2NativePool');
+    //   nativeV2Pool = await getV2NativePool(
+    //     quoteToken,
+    //     V2poolProvider,
+    //     providerConfig
+    //   );
+    //   console.log('mixedGasModel#getV2NativePool');
+    // }
+    if (V2poolProvider) {}
 
     const usdToken =
       usdPool.token0.address == nativeCurrency.address
@@ -139,7 +138,7 @@ export class MixedRouteHeuristicGasModelFactory extends IOnChainGasModelFactory 
         providerConfig
       );
 
-      if (!nativeV3Pool && !nativeV2Pool) {
+      if (!nativeV3Pool) {
         log.info(
           `Unable to find ${nativeCurrency.symbol} pool with the quote token, ${quoteToken.symbol} to produce gas adjusted costs. Route will not account for gas.`
         );
@@ -152,11 +151,7 @@ export class MixedRouteHeuristicGasModelFactory extends IOnChainGasModelFactory 
 
       /// we will use nativeV2Pool for fallback if nativeV3 does not exist or has 0 liquidity
       /// can use ! here because we return above if v3Pool and v2Pool are null
-      const nativePool =
-        (!nativeV3Pool || JSBI.equal(nativeV3Pool.liquidity, JSBI.BigInt(0))) &&
-          nativeV2Pool
-          ? nativeV2Pool
-          : nativeV3Pool!;
+      const nativePool = nativeV3Pool;
 
       const token0 = nativePool.token0.address == nativeCurrency.address;
 
