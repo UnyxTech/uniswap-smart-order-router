@@ -589,6 +589,7 @@ export class AlphaRouter
         new NodeJSCache(new NodeCache({ stdTTL: 30000, useClones: false }))
       );
     }
+    console.log('sor#tokenValidatorProvider', this.tokenValidatorProvider);
     if (tokenPropertiesProvider) {
       this.tokenPropertiesProvider = tokenPropertiesProvider;
     } else {
@@ -982,7 +983,7 @@ export class AlphaRouter
     );
 
     // perfect print?
-    console.log('routingConfig', routingConfig);
+    console.log('sor#routingConfig#900', routingConfig);
 
     if (routingConfig.debugRouting) {
       log.warn(`Finalized routing config is ${JSON.stringify(routingConfig)}`);
@@ -1010,6 +1011,8 @@ export class AlphaRouter
 
     // NOTE: if undefined, try to get the cacheMode from routeCachingProvider.
     // If routeCachingProvider is not defined, cacheMode will be undefined still
+    console.log('sor#overwriteCacheMode#1010', routingConfig.overwriteCacheMode);
+    console.log('sor#routeCachingProvider#1011', this.routeCachingProvider);
     const cacheMode = routingConfig.overwriteCacheMode ?? await this.routeCachingProvider?.getCacheMode(
       this.chainId,
       amount,
@@ -1018,7 +1021,7 @@ export class AlphaRouter
       protocols
     );
 
-    console.log('cacheMode', cacheMode);
+    console.log('sor#cacheMode#1021', cacheMode);
 
     // Fetch CachedRoutes
     let cachedRoutes: CachedRoutes | undefined;
@@ -1042,6 +1045,7 @@ export class AlphaRouter
       MetricLoggerUnit.Count
     );
 
+    console.log('sor#cachedRoutes#1030', cachedRoutes);
     if (cacheMode && routingConfig.useCachedRoutes && cacheMode !== CacheMode.Darkmode && !cachedRoutes) {
       metric.putMetric(
         `GetCachedRoute_miss_${cacheMode}`,
@@ -1085,6 +1089,7 @@ export class AlphaRouter
     let swapRouteFromCachePromise: Promise<BestSwapRoute | null> = Promise.resolve(null);
     // NOTE: skip this if we dont have routeCachingProvider
     if (cachedRoutes) {
+      console.log('sor#getSwapRouteFromCache#1090')
       swapRouteFromCachePromise = this.getSwapRouteFromCache(
         cachedRoutes,
         await blockNumber,
@@ -1099,8 +1104,9 @@ export class AlphaRouter
     }
 
     let swapRouteFromChainPromise: Promise<BestSwapRoute | null> = Promise.resolve(null);
-    // NOTE: we will get into this from now on.
+    // NOTE: we will get into this from now on. support only Darkmode and Tapcompare
     if (!cachedRoutes || cacheMode !== CacheMode.Livemode) {
+      console.log('sor#getSwapRouteFromCache#1100')
       swapRouteFromChainPromise = this.getSwapRouteFromChain(
         amount,
         tokenIn,
@@ -1115,8 +1121,7 @@ export class AlphaRouter
       );
     }
 
-    console.log('Promise swapRouteFromCachePromise and swapRouteFromChainPromise');
-
+    console.log('sor#promiseTwoSwapRoute#1110');
     const [swapRouteFromCache, swapRouteFromChain] = await Promise.all([
       swapRouteFromCachePromise,
       swapRouteFromChainPromise
@@ -1299,7 +1304,7 @@ export class AlphaRouter
         this.chainId
       );
     } else {
-      console.log('No swapConfig');
+      console.log('sor#NoSwapConfig');
     }
 
     const swapRoute: SwapRoute = {
@@ -1520,13 +1525,13 @@ export class AlphaRouter
     const mixedProtocolAllowed = [ChainId.MAINNET, ChainId.GOERLI].includes(this.chainId) &&
       tradeType === TradeType.EXACT_INPUT;
 
-    console.log('GetSwapRouteFromChain');
-    console.log('protocols', protocols);
-    console.log('v3ProtocolSpecified', v3ProtocolSpecified);
-    console.log('v2ProtocolSpecified', v2ProtocolSpecified);
-    console.log('v2SupportedInChain', v2SupportedInChain);
-    console.log('shouldQueryMixedProtocol', shouldQueryMixedProtocol);
-    console.log('mixedProtocolAllowed', mixedProtocolAllowed);
+    console.log('fromChain#GetSwapRouteFromChain');
+    console.log('fromChain#protocols', protocols);
+    console.log('fromChain#v3ProtocolSpecified', v3ProtocolSpecified);
+    console.log('fromChain#v2ProtocolSpecified', v2ProtocolSpecified);
+    console.log('fromChain#v2SupportedInChain', v2SupportedInChain);
+    console.log('fromChain#shouldQueryMixedProtocol', shouldQueryMixedProtocol);
+    console.log('fromChain#mixedProtocolAllowed', mixedProtocolAllowed);
 
     const beforeGetCandidates = Date.now();
 
@@ -1538,7 +1543,7 @@ export class AlphaRouter
       noProtocolsSpecified ||
       (shouldQueryMixedProtocol && mixedProtocolAllowed)
     ) {
-      console.log('Entering getV3CandidatePools');
+      console.log('fromChain#EnteringGetV3CandidatePools');
 
       v3CandidatePoolsPromise = getV3CandidatePools({
         tokenIn,
@@ -1564,7 +1569,7 @@ export class AlphaRouter
       (v2SupportedInChain && (v2ProtocolSpecified || noProtocolsSpecified)) ||
       (shouldQueryMixedProtocol && mixedProtocolAllowed)
     ) {
-      console.log('Entering getV2CandidatePools');
+      console.log('fromChain#EnteringGetV2CandidatePools');
 
       // Fetch all the pools that we will consider routing via. There are thousands
       // of pools, so we filter them to a set of candidate pools that we expect will
@@ -1590,7 +1595,7 @@ export class AlphaRouter
     // Maybe Quote V3 - if V3 is specified, or no protocol is specified
     if (v3ProtocolSpecified || noProtocolsSpecified) {
       log.info({ protocols, tradeType }, 'Routing across V3');
-      console.log('Entering Routing across V3');
+      console.log('fromChain#EnteringRoutingAcrossV3');
 
       metric.putMetric('SwapRouteFromChain_V3_GetRoutesThenQuotes_Request', 1, MetricLoggerUnit.Count);
       const beforeGetRoutesThenQuotes = Date.now();
@@ -1624,7 +1629,7 @@ export class AlphaRouter
     // Maybe Quote V2 - if V2 is specified, or no protocol is specified AND v2 is supported in this chain
     if (v2SupportedInChain && (v2ProtocolSpecified || noProtocolsSpecified)) {
       log.info({ protocols, tradeType }, 'Routing across V2');
-      console.log('Entering Routing across V2');
+      console.log('fromChain#EnteringRoutingAcrossV2');
 
       metric.putMetric('SwapRouteFromChain_V2_GetRoutesThenQuotes_Request', 1, MetricLoggerUnit.Count);
       const beforeGetRoutesThenQuotes = Date.now();
@@ -1661,7 +1666,7 @@ export class AlphaRouter
     // AND is Mainnet or Gorli
     if (shouldQueryMixedProtocol && mixedProtocolAllowed) {
       log.info({ protocols, tradeType }, 'Routing across MixedRoutes');
-      console.log('Entering Routing MixedRoutes');
+      console.log('fromChain#EnteringRoutingMixedRoutes');
 
       metric.putMetric('SwapRouteFromChain_Mixed_GetRoutesThenQuotes_Request', 1, MetricLoggerUnit.Count);
       const beforeGetRoutesThenQuotes = Date.now();

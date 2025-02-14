@@ -105,6 +105,9 @@ export class V2PoolProvider implements IV2PoolProvider {
         tokenA,
         tokenB
       );
+      // 0x49C2AE4E3C43Aa756c43b060dF6cA7BF658D7f8C
+
+      console.log('v2PoolProvider#getPoolAddress', poolAddress, token0, token1);
 
       if (poolAddressSet.has(poolAddress)) {
         continue;

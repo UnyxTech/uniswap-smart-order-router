@@ -98,6 +98,7 @@ export class MixedRouteHeuristicGasModelFactory extends IOnChainGasModelFactory 
         };
       };
 
+      console.log('mixedGasModel#returnFrom101');
       return {
         estimateGasCost,
       };
@@ -110,6 +111,7 @@ export class MixedRouteHeuristicGasModelFactory extends IOnChainGasModelFactory 
     let nativeV2Pool: Pair | null;
     if (V2poolProvider) {
       /// MixedRoutes
+      console.log('mixedGasModel#getV2NativePool');
       nativeV2Pool = await getV2NativePool(
         quoteToken,
         V2poolProvider,
