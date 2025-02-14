@@ -117,6 +117,7 @@ export class MixedRouteHeuristicGasModelFactory extends IOnChainGasModelFactory 
         V2poolProvider,
         providerConfig
       );
+      console.log('mixedGasModel#getV2NativePool');
     }
 
     const usdToken =
@@ -214,6 +215,7 @@ export class MixedRouteHeuristicGasModelFactory extends IOnChainGasModelFactory 
       };
     };
 
+    console.log('mixedGasModel#beforenestimateGasCost');
     return {
       estimateGasCost: estimateGasCost.bind(this),
     };

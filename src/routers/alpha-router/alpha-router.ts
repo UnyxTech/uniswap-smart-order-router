@@ -600,6 +600,7 @@ export class AlphaRouter
         new OnChainTokenFeeFetcher(this.chainId, provider)
       )
     }
+    console.log('sor#beforeV2PoolProvider', v2PoolProvider);
     this.v2PoolProvider =
       v2PoolProvider ??
       new CachingV2PoolProvider(
@@ -1011,6 +1012,7 @@ export class AlphaRouter
 
     // NOTE: if undefined, try to get the cacheMode from routeCachingProvider.
     // If routeCachingProvider is not defined, cacheMode will be undefined still
+    // WARN: somehow aws inits this, and it have cacheMode as livemode.
     console.log('sor#overwriteCacheMode#1010', routingConfig.overwriteCacheMode);
     console.log('sor#routeCachingProvider#1011', this.routeCachingProvider);
     const cacheMode = routingConfig.overwriteCacheMode ?? await this.routeCachingProvider?.getCacheMode(
@@ -1106,7 +1108,7 @@ export class AlphaRouter
     let swapRouteFromChainPromise: Promise<BestSwapRoute | null> = Promise.resolve(null);
     // NOTE: we will get into this from now on. support only Darkmode and Tapcompare
     if (!cachedRoutes || cacheMode !== CacheMode.Livemode) {
-      console.log('sor#getSwapRouteFromCache#1100')
+      console.log('sor#getSwapRouteFromChain#1100')
       swapRouteFromChainPromise = this.getSwapRouteFromChain(
         amount,
         tokenIn,
