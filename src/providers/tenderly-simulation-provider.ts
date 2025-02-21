@@ -2,7 +2,6 @@ import { MaxUint256 } from '@ethersproject/constants';
 import { JsonRpcProvider } from '@ethersproject/providers';
 import {
   PERMIT2_ADDRESS,
-  UNIVERSAL_ROUTER_ADDRESS,
 } from '@uniswap/universal-router-sdk';
 import axios from 'axios';
 import { BigNumber } from 'ethers/lib/ethers';
@@ -16,7 +15,10 @@ import {
   calculateGasUsed,
   initSwapRouteFromExisting,
 } from '../util/gas-factory-helpers';
-import { ChainId } from '../util';
+import {
+  ChainId,
+  UNIVERSAL_ROUTER_ADDRESS
+} from '../util';
 
 import { EthEstimateGasSimulator } from './eth-estimate-gas-provider';
 import { ProviderConfig } from './provider';

@@ -6,3 +6,4 @@ export * from './metric';
 export * from './protocols';
 export * from './routes';
 export * from './chain-ids';
+export * from './universal-router';

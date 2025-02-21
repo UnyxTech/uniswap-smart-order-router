@@ -7,7 +7,6 @@ import {
 import { Currency, TradeType } from '@uniswap/sdk-core';
 import {
   SwapRouter as UniveralRouter,
-  UNIVERSAL_ROUTER_ADDRESS,
 } from '@uniswap/universal-router-sdk';
 import { Route as V2RouteRaw } from '@uniswap/v2-sdk';
 import { Route as V3RouteRaw } from '@uniswap/v3-sdk';
@@ -26,6 +25,7 @@ import {
 } from '..';
 
 import { ChainId } from './chain-ids';
+import { UNIVERSAL_ROUTER_ADDRESS } from './universal-router';
 
 export function buildTrade<TTradeType extends TradeType>(
   tokenInCurrency: Currency,

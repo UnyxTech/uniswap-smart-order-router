@@ -64,6 +64,10 @@ export const SWAP_ROUTER_02_ADDRESSES = (chainId: number): string => {
   if (chainId == ChainId.BNB) {
     return BNB_SWAP_ROUTER_02_ADDRESS;
   }
+  // NOTE: doge sepolia uses its own swap router address
+  if (chainId == ChainId.DOGE_SEPOLIA) {
+    return CHAIN_TO_ADDRESSES_MAP[ChainId.DOGE_SEPOLIA].swapRouter02Address!;
+  }
   return '0x68b3465833fb72A70ecDF485E0e4C7bD8665Fc45';
 };
 
