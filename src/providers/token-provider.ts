@@ -488,6 +488,14 @@ export const USDC_DOGE_SEPOLIA = new Token(
   'USD Coin'
 )
 
+export const USDC_DOGE_TESTNET = new Token(
+  ChainId.DOGE_TESTNET,
+  '0xd01c252D92554eC19c50Da53348f85117C23c431',
+  18,
+  'USDC',
+  'USD Coin'
+)
+
 // Gnosis Tokens
 export const USDC_ETHEREUM_GNOSIS = new Token(
   ChainId.GNOSIS,
@@ -803,6 +811,8 @@ export const USDC_ON = (chainId: ChainId): Token => {
       return USDC_BASE_GOERLI;
     case ChainId.DOGE_SEPOLIA:
       return USDC_DOGE_SEPOLIA;
+      case ChainId.DOGE_TESTNET:
+        return USDC_DOGE_TESTNET;
     default:
       throw new Error(`Chain id: ${chainId} not supported`);
   }

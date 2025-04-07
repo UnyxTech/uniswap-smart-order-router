@@ -15,6 +15,7 @@ export const HAS_L1_FEE = [
   ChainId.BASE,
   ChainId.BASE_GOERLI,
   ChainId.DOGE_SEPOLIA,
+  ChainId.DOGE_TESTNET,
 ];
 
 export const NETWORKS_WITH_SAME_UNISWAP_ADDRESSES = [
@@ -64,6 +65,8 @@ export const ID_TO_CHAIN_ID = (id: number): ChainId => {
       return ChainId.BASE_GOERLI;
     case 84532:
       return ChainId.DOGE_SEPOLIA;
+    case 221122420:
+      return ChainId.DOGE_TESTNET;
     default:
       throw new Error(`Unknown chain id: ${id}`);
   }
@@ -87,7 +90,8 @@ export enum ChainName {
   AVALANCHE = 'avalanche-mainnet',
   BASE = 'base-mainnet',
   BASE_GOERLI = 'base-goerli',
-  DOGE_SEPOLIA = 'doge-sepolia'
+  DOGE_SEPOLIA = 'doge-sepolia',
+  DOGE_TESTNET = 'doge-testnet',
 }
 
 
@@ -100,6 +104,7 @@ export enum NativeCurrencyName {
   MOONBEAM = 'GLMR',
   BNB = 'BNB',
   AVALANCHE = 'AVAX',
+  DOGE = 'DOGE',
 }
 
 export const NATIVE_NAMES_BY_ID: { [chainId: number]: string[] } = {
@@ -168,6 +173,11 @@ export const NATIVE_NAMES_BY_ID: { [chainId: number]: string[] } = {
     'ETH',
     'ETHER',
     '0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee',
+  ],
+  [ChainId.DOGE_TESTNET]: [
+    'DOGE',
+    'DOGE',
+    '0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee',
   ]
 };
 
@@ -189,6 +199,7 @@ export const NATIVE_CURRENCY: { [chainId: number]: NativeCurrencyName } = {
   [ChainId.AVALANCHE]: NativeCurrencyName.AVALANCHE,
   [ChainId.BASE]: NativeCurrencyName.ETHER,
   [ChainId.DOGE_SEPOLIA]: NativeCurrencyName.ETHER,
+  [ChainId.DOGE_TESTNET]: NativeCurrencyName.DOGE
 };
 
 export const ID_TO_NETWORK_NAME = (id: number): ChainName => {
@@ -229,6 +240,8 @@ export const ID_TO_NETWORK_NAME = (id: number): ChainName => {
       return ChainName.BASE_GOERLI;
     case 84532:
       return ChainName.DOGE_SEPOLIA;
+    case 221122420:
+      return ChainName.DOGE_TESTNET;
     default:
       throw new Error(`Unknown chain id: ${id}`);
   }
@@ -270,6 +283,8 @@ export const ID_TO_PROVIDER = (id: ChainId): string => {
       return process.env.JSON_RPC_PROVIDER_BASE!;
     case ChainId.DOGE_SEPOLIA:
       return process.env.JSON_RPC_PROVIDER_DOGE_SEPOLIA!;
+    case ChainId.DOGE_TESTNET:
+      return process.env.JSON_RPC_PROVIDER_DOGE_TESTNET!;
     default:
       throw new Error(`Chain id: ${id} not supported`);
   }
@@ -404,6 +419,13 @@ export const WRAPPED_NATIVE_CURRENCY: { [chainId in ChainId]: Token } = {
     'WETH',
     'Wrapped Ether'
   ),
+  [ChainId.DOGE_TESTNET]: new Token(
+    ChainId.DOGE_TESTNET,
+    '0xcc8269b15fB01Fe88B8728708A0e3dAe75f7338a',
+    18,
+    'WDOGE',
+    'Wrapped DOGE'
+  )
 };
 
 function isMatic(

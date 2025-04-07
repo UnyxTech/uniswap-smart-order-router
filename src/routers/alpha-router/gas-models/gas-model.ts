@@ -36,6 +36,7 @@ import {
   USDT_OPTIMISM_GOERLI,
   WBTC_GOERLI,
   USDC_DOGE_SEPOLIA,
+  USDC_DOGE_TESTNET,
 } from '../../../providers/token-provider';
 import { IV2PoolProvider } from '../../../providers/v2/pool-provider';
 import {
@@ -77,6 +78,7 @@ export const usdGasTokensByChain: { [chainId in ChainId]?: Token[] } = {
   [ChainId.AVALANCHE]: [DAI_AVAX, USDC_AVAX],
   [ChainId.BASE]: [USDC_BASE],
   [ChainId.DOGE_SEPOLIA]: [USDC_DOGE_SEPOLIA],
+  [ChainId.DOGE_TESTNET]: [USDC_DOGE_TESTNET],
 };
 
 export type L1ToL2GasCosts = {

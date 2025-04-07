@@ -64,7 +64,9 @@ const SUBGRAPH_URL_BY_CHAIN: { [chainId in ChainId]?: string } = {
   [ChainId.BASE]:
     'https://api.studio.thegraph.com/query/48211/uniswap-v3-base/version/latest',
   [ChainId.DOGE_SEPOLIA]:
-    'https://graph-node.dogeos.ai/subgraphs/name/ianlapham/uniswap-v3',
+    'deprecated',
+  [ChainId.DOGE_TESTNET]:
+    'https://graph-node.dogeos.ai/subgraphs/name/ianlapham/uniswap-v3'
 };
 
 const PAGE_SIZE = 1000; // 1k is max possible query size from subgraph.

@@ -106,6 +106,7 @@ export const WETH9: {
     | ChainId.MOONBEAM
     | ChainId.BNB
     | ChainId.AVALANCHE
+    | ChainId.DOGE_TESTNET
   >]: Token;
 } = {
   [ChainId.MAINNET]: new Token(

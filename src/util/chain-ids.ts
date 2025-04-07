@@ -18,6 +18,7 @@ export enum ChainId {
   BASE = 8453,
   // NOTE: Doge testnet and mainnet.
   DOGE_SEPOLIA = 84532,
+  DOGE_TESTNET = 221122420,
 }
 
 type ChainAddresses = {
@@ -160,6 +161,18 @@ const DOGE_SEPOLIA_ADDRESSES: ChainAddresses = {
   swapRouter02Address: '0xBABcefF63c07e8B452c2990b8e9D784191765dDd',
 };
 
+// Doge testnet v3 addresses
+const DOGE_TESTNET_ADDRESSES: ChainAddresses = {
+  v3CoreFactoryAddress: '0xb7C0817Dd23DE89E4204502dd2C2EF7F57d3A3B8',
+  multicallAddress: '0x6D46A83911Bf7dEb48A8bdFD645781252De4F916',
+  quoterAddress: '0xC2dA52c56cd52CaBDf299dB22E7D43Ae2de4962d',
+  v3MigratorAddress: '0xe09DD901A0955107B4Dc1A8170D116494064fa7f',
+  nonfungiblePositionManagerAddress:
+    '0xE361Ac5aF9A73fEE3ECe478493211B4a58617466',
+  tickLensAddress: '0xD871696c9EA3ca9FD5258E33d093d504b7cB2DAB',
+  swapRouter02Address: '0xBe7B30beDF10E4b4118D534cfe7658531a9add1F',
+};
+
 export const SUPPORTED_CHAINS = [
   ChainId.MAINNET,
   ChainId.OPTIMISM,
@@ -177,6 +190,7 @@ export const SUPPORTED_CHAINS = [
   ChainId.BASE,
   ChainId.BASE_GOERLI,
   ChainId.DOGE_SEPOLIA,
+  ChainId.DOGE_TESTNET,
 ] as const;
 export type SupportedChainsType = typeof SUPPORTED_CHAINS[number];
 
@@ -200,4 +214,5 @@ export const CHAIN_TO_ADDRESSES_MAP: Record<
   [ChainId.BASE]: BASE_ADDRESSES,
   [ChainId.BASE_GOERLI]: BASE_GOERLI_ADDRESSES,
   [ChainId.DOGE_SEPOLIA]: DOGE_SEPOLIA_ADDRESSES,
+  [ChainId.DOGE_TESTNET]: DOGE_TESTNET_ADDRESSES,
 };

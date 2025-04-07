@@ -472,6 +472,7 @@ export class AlphaRouter
         case ChainId.BASE:
         case ChainId.BASE_GOERLI:
         case ChainId.DOGE_SEPOLIA:
+          case ChainId.DOGE_TESTNET:
           this.onChainQuoteProvider = new OnChainQuoteProvider(
             chainId,
             provider,
@@ -618,7 +619,7 @@ export class AlphaRouter
         UNSUPPORTED_TOKENS as TokenList,
         new NodeJSCache(new NodeCache({ stdTTL: 3600, useClones: false }))
       );
-    // NOTE: 
+    // NOTE:
     this.tokenProvider =
       tokenProvider ??
       new CachingTokenProviderWithFallback(

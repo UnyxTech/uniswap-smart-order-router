@@ -102,6 +102,12 @@ const CHAIN_CONFIGS: { [key: number]: ChainConfig } = {
         router: '0x485ECD27a515D06EDdD969ab1CABD4e1D5C360Cb',
         weth: '0x1d61c8e2ff2c987e9d6443e9b9f521ab901a4631',
         creationBlock: 22135090,
+    },
+    // doge testnet
+    [221122420]: {
+      router: '0x2B38d8f49c33658Ab665468a791516B546692DbC',
+      weth: '0xcc8269b15fB01Fe88B8728708A0e3dAe75f7338a',
+      creationBlock: 642,
     }
 }
 
