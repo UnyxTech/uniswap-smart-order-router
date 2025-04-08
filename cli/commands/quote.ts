@@ -174,7 +174,7 @@ export class Quote extends BaseCommand {
           }
           : undefined,
         {
-          blockNumber: this.blockNumber - 10,
+          blockNumber: this.blockNumber, // NOTE: dogechain doesn't produce empty block, so we tmply set this to current height for testing.
           v3PoolSelection: {
             topN,
             topNTokenInOut,
