@@ -22,6 +22,7 @@ export const V3_CORE_FACTORY_ADDRESSES: AddressMap = {
   [ChainId.BASE_GOERLI]: CHAIN_TO_ADDRESSES_MAP[ChainId.BASE_GOERLI].v3CoreFactoryAddress,
   [ChainId.BASE]: CHAIN_TO_ADDRESSES_MAP[ChainId.BASE].v3CoreFactoryAddress,
   [ChainId.DOGE_SEPOLIA]: CHAIN_TO_ADDRESSES_MAP[ChainId.DOGE_SEPOLIA].v3CoreFactoryAddress,
+  [ChainId.DOGE_TESTNET]: CHAIN_TO_ADDRESSES_MAP[ChainId.DOGE_TESTNET].v3CoreFactoryAddress,
   // TODO: Gnosis + Moonbeam contracts to be deployed
 };
 
@@ -37,6 +38,7 @@ export const QUOTER_V2_ADDRESSES: AddressMap = {
   [ChainId.BASE_GOERLI]: CHAIN_TO_ADDRESSES_MAP[ChainId.BASE_GOERLI].quoterAddress,
   [ChainId.BASE]: CHAIN_TO_ADDRESSES_MAP[ChainId.BASE].quoterAddress,
   [ChainId.DOGE_SEPOLIA]: CHAIN_TO_ADDRESSES_MAP[ChainId.DOGE_SEPOLIA].quoterAddress,
+  [ChainId.DOGE_TESTNET]: CHAIN_TO_ADDRESSES_MAP[ChainId.DOGE_TESTNET].quoterAddress,
   // TODO: Gnosis + Moonbeam contracts to be deployed
 };
 
@@ -57,6 +59,7 @@ export const UNISWAP_MULTICALL_ADDRESSES: AddressMap = {
   [ChainId.BASE_GOERLI]: CHAIN_TO_ADDRESSES_MAP[ChainId.BASE_GOERLI].multicallAddress,
   [ChainId.BASE]: CHAIN_TO_ADDRESSES_MAP[ChainId.BASE].multicallAddress,
   [ChainId.DOGE_SEPOLIA]: CHAIN_TO_ADDRESSES_MAP[ChainId.DOGE_SEPOLIA].multicallAddress,
+  [ChainId.DOGE_TESTNET]: CHAIN_TO_ADDRESSES_MAP[ChainId.DOGE_TESTNET].multicallAddress,
   // TODO: Gnosis + Moonbeam contracts to be deployed
 };
 
@@ -68,6 +71,10 @@ export const SWAP_ROUTER_02_ADDRESSES = (chainId: number): string => {
   if (chainId == ChainId.DOGE_SEPOLIA) {
     return CHAIN_TO_ADDRESSES_MAP[ChainId.DOGE_SEPOLIA].swapRouter02Address!;
   }
+  if (chainId == ChainId.DOGE_TESTNET) {
+    return CHAIN_TO_ADDRESSES_MAP[ChainId.DOGE_TESTNET].swapRouter02Address!;
+  }
+
   return '0x68b3465833fb72A70ecDF485E0e4C7bD8665Fc45';
 };
 
